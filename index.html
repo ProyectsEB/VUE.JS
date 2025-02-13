@@ -3,56 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <title>Document</title>
 </head>
 <body>
     <div id="app">
-   Contador: {{contador}}
-   <button type="button" v-on:click="stop">detener</button>
 
-   
+       <h1>hola esto es: {{ message }}</h1>
+       <button @click="clickMe">Click Me</button>
         
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script>
+        <script>
+           const app = Vue.createApp({
+               data(){
+                   return {
+                       message: 'Hello Vue 3'
+                   };
+               },
 
-        //data , methods, props, computed, watch, destroyed
-        const holaMundo = {
-            data(){
-                return {
-                    contador : 0,
-                    intervalo: null,
-                    isRunning: true
+               methods: {
+                   clickMe(){
+                     console.log('button click me');
+                     this.message = 'Updated message';
+                   }
+               }
 
-                }
-            },
-            mounted(){
-              this.intervalo =  setInterval(() => {
-                    this.contador++
-                }, 1000);
-                this.isRunning = true;
-            },
+               
+           });
+           
 
-            methods:{
-                stop(){
-                    if(this.isRunning)
-                    {
-                        
-                    clearInterval(this.intervalo)
-                    this.isRunning = false;
-                    }
-                    else{
-                        this.intervalo =  setInterval(() => {
-                            this.contador++
-                        }, 1000);
-                        this.isRunning = true;
-                    }
-                }
-            }
+           app.mount('#app');
+        
+        </script>
 
-        }
 
-        Vue.createApp(holaMundo).mount('#app')
-    </script>
-    
+    </div>
 </body>
 </html>
